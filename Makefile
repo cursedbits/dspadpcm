@@ -14,11 +14,14 @@ INCLUDES	:=	include
 SOURCES		:=	src
 BUILD		:=	build
 
-CFLAGS		:=	-O3 -g -Wall -std=c89 \
-			-ffunction-sections -fdata-sections \
-			$(INCLUDE) -DUNIX -D_POSIX_C_SOURCE=200809L
+OPTFLAGS	:=	-O3 -flto
 
-LDFLAGS		:=	-Wl,-x -Wl,--gc-sections
+CFLAGS		:=	$(OPTFLAGS) -g -Wall -std=c89 \
+			-ffunction-sections -fdata-sections \
+			$(INCLUDE) -DUNIX -D_POSIX_C_SOURCE=200809L \
+			-flto
+
+LDFLAGS		:=	-Wl,-x -Wl,--gc-sections $(OPTFLAGS)
 
 CFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.c)))
 
