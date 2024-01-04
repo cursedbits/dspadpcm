@@ -767,7 +767,7 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 
-	if(coef_path[0] && (coef_file = fopen(coef_path, "w")) == NULL) {
+	if(coef_path && (coef_file = fopen(coef_path, "w")) == NULL) {
 		printf("\nERROR: Cannot open %s for writing!\n", coef_path);
 		clean_up();
 		return 1;
