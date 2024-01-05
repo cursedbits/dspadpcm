@@ -35,7 +35,7 @@ u32	decodeFormat;  /* user specified decode fromat */
 void print_banner(void)
 {
 	printf("\n"
-	       "DSPADPCM v2.3 - DSP-ADPCM encoder\n"
+	       "DSPADPCM v2.3p1 - DSP-ADPCM encoder\n"
 	       "Copyright 2001 Nintendo. All rights reserved.\n\n");
 }
 
@@ -299,6 +299,12 @@ BOOL parse_args(int argc, char* argv[])
 		return FALSE;
 	}
 
+	/* do we have a mode? */
+	if(!decode_flag && !encode_flag) {
+		printf("\nERROR: MODE directive not specified!\n");
+		return FALSE;
+	}
+
 	if(!output_path) {
 		/* output path not specified yet, use default */
 		output_path = (char*) malloc(strlen(input_path) + 4);
@@ -316,6 +322,7 @@ BOOL parse_args(int argc, char* argv[])
 			/* add default extension of '.dsp' */
 			strcpy(findext(output_path), ".dsp");
 		} else {
+			/* this should be unreachable */
 			printf("\nERROR: MODE directive not specified!\n");
 			return FALSE;
 		}
